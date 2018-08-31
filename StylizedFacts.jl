@@ -5,13 +5,13 @@ using Plots
 include("DescriptiveStatistics.jl")
 plotly()
 
-# Load Data
+## Load Data
 #history = readtimearray(".\\docs\\Presentations\\plot_history\\baseG18.csv")
 history = readtimearray(".\\docs\\HistoricoLista1SF.csv", format="dd/mm/yyyy") #delim=';')
 numA = size(history,2)
 datesOriginal = timestamp(history)
 
-## Prepare data
+## Prepare data: remove NAN rows
 
 historyNoNA = history[datesOriginal[vec(!any(isnan.(values(history)),2))]]
 numD,numA = size(historyNoNA)       # A: Assets    D: Days
@@ -42,6 +42,9 @@ plot(timestamp(returns),values(logreturns["BBAS3"])*100, label="logreturns", xla
 plot(timestamp(returns),values(returns["DOL"]),title="DOLAR Daily Returns", label="returns", xlabel="Dates",ylabel="Returns");
 plot(timestamp(returns),values(logreturns["DOL"])*100, label="logreturns", xlabel="Dates",ylabel="Returns")
 
+# histogram logreturns
+histogram(logreturns["BBAS3"])
+histogram(logreturns["DOL"])
 
 # Calculate arithmetic returns and log returns monthly
 returns30 = percentchange(historyNoNA[dates[1:22:end]])
@@ -57,8 +60,7 @@ plot(timestamp(returns30),values(returns30["DOL"]), title="DOLAR Monthly Returns
 plot!(timestamp(returns30),values(logreturns30["DOL"]), label="logreturns", xlabel="Dates",ylabel="Returns")
 
 ## Calculate descriptive statistics entire series
-histogram(logreturns["BBAS3"])
-histogram(logreturns["DOL"])
+
 #- descriptive statistics daily returns-#
 DescriptiveStatistics(logreturns["BBAS3","DOL"])
 
