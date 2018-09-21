@@ -2,6 +2,7 @@ using TimeSeries
 using StatsBase
 using DataFrames
 using Plots
+using Latexify
 include("DescriptiveStatistics.jl")
 plotly()
 
@@ -61,8 +62,9 @@ plot!(timestamp(returns30),values(logreturns30["DOL"]), label="logreturns", xlab
 
 ## Calculate descriptive statistics entire series
 
-#- descriptive statistics daily returns-#
-DescriptiveStatistics(logreturns["BBAS3","DOL"])
+# descriptive statistics daily returns-#
+latexifyin = DescriptiveStatistics(logreturns["BBAS3","DOL"])
+latexify(signif.(latexifyin,2)) # print latex
 
 y1 = logreturns["BBAS3"]; y2 = logreturns["DOL"]
 # autocorrelation function (FAC) series
