@@ -1,2 +1,2 @@
-# PredictTimeSeries
-PredictTimeSeries
+# FinancialTimeSeriesAnalysis
+FinancialTimeSeriesAnalysis
